@@ -7,8 +7,7 @@ import javax.inject.Inject;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @MicronautTest
 class OrderRepositoryTest {
@@ -18,6 +17,17 @@ class OrderRepositoryTest {
 
   @Inject
   OrderRepository orderRepository;
+
+  @Test
+  public void shouldFetchOrderWithoutCustomer() {
+    Order order1 = new Order(null);
+    orderRepository.save(order1);
+
+    Optional<Order> fetchedOrder = orderRepository.findById(order1.getId());
+
+    assertTrue(fetchedOrder.isPresent());
+    assertNotNull(fetchedOrder.get());
+  }
 
   @Test
   public void shouldOrderByCustomer() {

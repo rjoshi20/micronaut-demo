@@ -13,6 +13,9 @@ public class Order {
   @GeneratedValue
   private Long id;
 
+  public Order() {
+  }
+
   public Customer getCustomer() {
     return customer;
   }
