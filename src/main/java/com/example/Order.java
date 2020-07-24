@@ -13,27 +13,26 @@ public class Order {
   @GeneratedValue
   private Long id;
 
-  public Order() {
-  }
-
-  public Customer getCustomer() {
-    return customer;
-  }
-
-  public void setCustomer(Customer customer) {
-    this.customer = customer;
-  }
-
   @ManyToOne
   private Customer customer;
 
-  public Order(Long id, Customer customer) {
-    this.id = id;
+  @ManyToOne
+  private Address address;
+
+  public Order() {
+  }
+
+  public Order(Customer customer, Address address) {
     this.customer = customer;
+    this.address = address;
   }
 
   public Order(Customer customer) {
     this.customer = customer;
+  }
+
+  public Order(Address address) {
+    this.address = address;
   }
 
   public void setId(Long id) {
@@ -44,4 +43,19 @@ public class Order {
     return id;
   }
 
+  public Customer getCustomer() {
+    return customer;
+  }
+
+  public void setCustomer(Customer customer) {
+    this.customer = customer;
+  }
+
+  public Address getAddress() {
+    return address;
+  }
+
+  public void setAddress(Address address) {
+    this.address = address;
+  }
 }

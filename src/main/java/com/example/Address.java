@@ -7,21 +7,21 @@ import javax.persistence.Entity;
 import java.util.Objects;
 
 @Entity
-public class Customer {
+public class Address {
 
   @Id
   @GeneratedValue
   private Long id;
 
-  private String name;
+  private String zipcode;
 
-  public Customer(Long id, String name) {
+  public Address(Long id, String zipcode) {
     this.id = id;
-    this.name = name;
+    this.zipcode = zipcode;
   }
 
-  public Customer(String name) {
-    this.name = name;
+  public Address(String zipcode) {
+    this.zipcode = zipcode;
   }
 
   public void setId(Long id) {
@@ -32,25 +32,25 @@ public class Customer {
     return id;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setZipcode(String zipcode) {
+    this.zipcode = zipcode;
   }
 
-  public String getName() {
-    return name;
+  public String getZipcode() {
+    return zipcode;
   }
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    Customer customer = (Customer) o;
-    return Objects.equals(id, customer.id) &&
-      Objects.equals(name, customer.name);
+    Address address = (Address) o;
+    return Objects.equals(id, address.id) &&
+      Objects.equals(zipcode, address.zipcode);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name);
+    return Objects.hash(id, zipcode);
   }
 }

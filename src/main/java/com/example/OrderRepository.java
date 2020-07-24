@@ -9,14 +9,25 @@ import io.micronaut.data.repository.CrudRepository;
 import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
+import static io.micronaut.data.annotation.Join.Type.LEFT_FETCH;
+
 @JdbcRepository(dialect = Dialect.H2)
 public interface OrderRepository extends CrudRepository<Order, Long> {
 
   @NonNull
-  @Join(value = "customer")
+  @Join(value = "customer", type = LEFT_FETCH)
+  @Join(value = "address", type = LEFT_FETCH)
   Optional<Order> findByCustomer(@NonNull @NotNull Customer customer);
 
   @NonNull
-  @Join(value = "customer")
-  Optional<Order> findByCustomerName(@NonNull @NotNull String name);
+  @Join(value = "customer", type = LEFT_FETCH)
+  @Join(value = "address", type = LEFT_FETCH)
+  Optional<Order> searchById(@NonNull @NotNull Long orderId);
+
+  @NonNull
+  @Join(value = "address", type = LEFT_FETCH)
+  @Join(value = "customer", type = LEFT_FETCH)
+  Optional<Order> findByCustomerName(@NonNull @NotNull String customerName);
+
+
 }
