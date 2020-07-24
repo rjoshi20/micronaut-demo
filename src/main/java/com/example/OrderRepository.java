@@ -15,4 +15,8 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
   @NonNull
   @Join(value = "customer")
   Optional<Order> findByCustomer(@NonNull @NotNull Customer customer);
+
+  @NonNull
+  @Join(value = "customer")
+  Optional<Order> findByCustomerName(@NonNull @NotNull String name);
 }

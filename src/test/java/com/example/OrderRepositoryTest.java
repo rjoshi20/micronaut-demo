@@ -31,4 +31,17 @@ class OrderRepositoryTest {
     assertTrue(searchedOrder.isPresent());
     assertEquals(order.getId(), searchedOrder.get().getId());
   }
+
+  @Test
+  public void shouldOrderByCustomerName() {
+    Customer customer = new Customer("Customer #1");
+    customerRepository.save(customer);
+
+    Order order = new Order(customer);
+    orderRepository.save(order);
+
+    Optional<Order> searchedOrder = orderRepository.findByCustomerName("Customer #1");
+    assertTrue(searchedOrder.isPresent());
+    assertEquals(order.getId(), searchedOrder.get().getId());
+  }
 }
