@@ -33,5 +33,5 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
 
   @NonNull
   @Join(value = "customer", type = LEFT_FETCH)
-  Page<Order> findAll(Pageable page);
+  Page<Order> findAll(Pageable pageable);
 }
