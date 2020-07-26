@@ -3,6 +3,8 @@ package com.example;
 import edu.umd.cs.findbugs.annotations.NonNull;
 import io.micronaut.data.annotation.Join;
 import io.micronaut.data.jdbc.annotation.JdbcRepository;
+import io.micronaut.data.model.Page;
+import io.micronaut.data.model.Pageable;
 import io.micronaut.data.model.query.builder.sql.Dialect;
 import io.micronaut.data.repository.CrudRepository;
 
@@ -29,5 +31,7 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
   @Join(value = "customer", type = LEFT_FETCH)
   Optional<Order> findByCustomerName(@NonNull @NotNull String customerName);
 
-
+  @NonNull
+  @Join(value = "customer", type = LEFT_FETCH)
+  Page<Order> findAll(Pageable page);
 }

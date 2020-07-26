@@ -5,6 +5,7 @@ import io.micronaut.data.annotation.Id;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import java.util.Objects;
 
 @Entity
 public class Order {
@@ -57,5 +58,20 @@ public class Order {
 
   public void setAddress(Address address) {
     this.address = address;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Order order = (Order) o;
+    return Objects.equals(id, order.id) &&
+      Objects.equals(customer, order.customer) &&
+      Objects.equals(address, order.address);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, customer, address);
   }
 }

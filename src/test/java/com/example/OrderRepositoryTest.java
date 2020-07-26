@@ -1,5 +1,7 @@
 package com.example;
 
+import io.micronaut.data.model.Page;
+import io.micronaut.data.model.Pageable;
 import io.micronaut.test.annotation.MicronautTest;
 import org.junit.jupiter.api.Test;
 
@@ -7,6 +9,7 @@ import javax.inject.Inject;
 
 import java.util.Optional;
 
+import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.*;
 
 @MicronautTest
@@ -73,5 +76,17 @@ class OrderRepositoryTest {
 
     assertEquals(order.getId(), searchedOrder.getId());
     assertEquals(customer, searchedOrder.getCustomer());
+  }
+
+
+  @Test
+  public void findPageOfOrders() {
+    Order order1 = new Order();
+    Order order2 = new Order();
+    orderRepository.saveAll(asList(order1, order2));
+
+    Page<Order> page = orderRepository.findAll(Pageable.from(1,1));
+    assertEquals(2, page.getTotalSize());
+    assertEquals(order2, page.getContent().get(0));
   }
 }
